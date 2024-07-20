@@ -5,12 +5,12 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfxfk"]
 atlas = ExtResource("2_qm1vg")
-region = Rect2(80, 0, 16, 16)
+region = Rect2(32, 0, 16, 16)
 
 [resource]
 script = ExtResource("1_78gdy")
 texture = SubResource("AtlasTexture_vfxfk")
-color_lit = Color(0.486275, 0.666667, 0, 1)
-color_dark = Color(0.264017, 0.290966, 9.62615e-08, 1)
+color_lit = Color(0.577022, 0.556453, 0.501065, 1)
+color_dark = Color(0.334768, 0.355633, 0.367054, 1)
 is_walkable = true
 is_transparent = true

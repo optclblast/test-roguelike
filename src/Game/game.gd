@@ -15,20 +15,22 @@ const item_definition: EntityDefinition = preload("res://assets/definitions/enti
 func _ready() -> void:
 	player = Entity.new(Vector2i.ZERO, player_definition)
 	entities.add_child(player)
-	map.generate(player)
-	
-	# var npc := Entity.new(player_start_pos + Vector2i(-2, 0), player_definition)
-	# npc.modulate = Color.ORANGE_RED
-	# entities.add_child(npc)
 
-	# var test_item: Entity = Entity.new(player_start_pos + Vector2i.LEFT, item_definition)
-	# test_item.modulate = Color.POWDER_BLUE
-	# entities.add_child(test_item)
+	var camera: Camera2D = $Camera2D 
+	self.remove_child(camera)
+	player.add_child(camera)
+
+	map.generate(player)
+	map.update_fov(player.grid_position)
 
 func _physics_process(_delta: float) -> void:
 	var action: Action =  self.event_handler.get_action()
 	if action:
+		var previous_player_position: Vector2i = player.grid_position
 		action.perform(self, player)
+
+		if player.grid_position != previous_player_position:
+			map.update_fov(player.grid_position)
 
 
 func get_map_data() -> MapData:

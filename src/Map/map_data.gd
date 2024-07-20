@@ -47,3 +47,7 @@ func grid_to_index(grid_position: Vector2i) -> int:
 		return -1
 
 	return grid_position.y * width + grid_position.x
+
+func get_tile_xy(x: int, y: int) -> Tile:
+	var grid_position := Vector2i(x, y)
+	return get_tile(grid_position)
