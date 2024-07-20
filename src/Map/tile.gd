@@ -17,7 +17,7 @@ var is_in_view: bool = false:
 
 
 func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
-	visible = true
+	visible = false
 	centered = false
 	position = Grid.grid_to_world(grid_position)
 	scale = Grid.DEFAULT_SCALE

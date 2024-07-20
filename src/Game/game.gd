@@ -19,7 +19,8 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	var action: Action = event_handler.get_action()
 	if action:
-		var previous_player_position: Vector2i = player.grid_position
+		#var previous_player_position: Vector2i = player.grid_position
+		
 		action.perform(self, player)
 		_handle_enemy_turns()
 		map.update_fov(player.grid_position)
@@ -29,8 +30,7 @@ func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:
 		if entity == player:
 			continue
-		print("The %s wonders when it will get to take a real turn." % entity.get_entity_name())
-
+	# TODO move or attack or do whatever enemies do???
 
 func get_map_data() -> MapData:
 	return map.map_data

@@ -1,10 +1,4 @@
-class_name MovementAction extends Action 
-
-var offset:Vector2i
-
-func _init(dx: int, dy: int) -> void:
-	offset = Vector2i(dx, dy)
-
+class_name MovementAction extends ActionWithDirection 
 
 func perform(game: Game, entity: Entity) -> void:
 	var destination: Vector2i = entity.grid_position + offset
@@ -14,5 +8,8 @@ func perform(game: Game, entity: Entity) -> void:
 
 	if not destination_tile or not destination_tile.is_walkable():
 		return
+
+	if game.get_map_data().get_blocking_entity_at_location(destination):
+		return 
 
 	entity.move(offset)

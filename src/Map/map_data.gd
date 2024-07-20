@@ -43,22 +43,24 @@ func is_in_bounds(coordinate: Vector2i) -> bool:
 	)
 
 func get_tile_xy(x: int, y: int) -> Tile:
-	var grid_position := Vector2i(x, y)
-	return get_tile(grid_position)
+	return get_tile(Vector2i(x, y))
 
 func get_tile(grid_position: Vector2i) -> Tile:
 	var tile_index: int = grid_to_index(grid_position)
 	if tile_index == -1:
 		return null
+
 	return tiles[tile_index]
 
 func get_blocking_entity_at_location(grid_position: Vector2i) -> Entity:
 	for entity in entities:
 		if entity.is_blocking_movement() and entity.grid_position == grid_position:
 			return entity
+
 	return null
 
 func grid_to_index(grid_position: Vector2i) -> int:
 	if not is_in_bounds(grid_position):
 		return -1
+		
 	return grid_position.y * width + grid_position.x

@@ -11,6 +11,7 @@ func _init(start_position: Vector2i, entity_definition: EntityDefinition) -> voi
 	centered = false
 	grid_position = start_position
 	scale = Grid.DEFAULT_SCALE
+	
 	set_entity_type(entity_definition)
 
 func set_entity_type(entity_definition: EntityDefinition) -> void:

@@ -11,5 +11,5 @@ region = Rect2(416, 32, 16, 16)
 script = ExtResource("1_xg4jl")
 name = "Orc"
 texture = SubResource("AtlasTexture_eais1")
-color = Color(0.453293, 0.411769, 0.242367, 1)
+color = Color(0.658639, 0.68459, 0.176181, 1)
 is_blocking_movement = true

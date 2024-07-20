@@ -11,5 +11,5 @@ region = Rect2(400, 0, 16, 16)
 script = ExtResource("1_jis8c")
 name = "Hero"
 texture = SubResource("AtlasTexture_50h3g")
-color = Color(1, 1, 1, 1)
+color = Color(0.848607, 0.948826, 1, 1)
 is_blocking_movement = true

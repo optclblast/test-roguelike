@@ -6,8 +6,8 @@ const entity_types = {
 }
 
 @export_category("Map Dimensions")
-@export var map_width: int = 140
-@export var map_height: int = 65
+@export var map_width: int = 100
+@export var map_height: int = 45
 
 @export_category("Rooms RNG")
 @export var max_rooms: int = 30
@@ -114,9 +114,9 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 				break
 		
 		if can_place:
-			var new_entity: Entity
-			if _rng.randf() < 0.8:
-				new_entity = Entity.new(new_entity_position, entity_types.orc)
-			else:
+			var new_entity: Entity = Entity.new(new_entity_position, entity_types.orc)
+			
+			if _rng.randf() >= 0.8:
 				new_entity = Entity.new(new_entity_position, entity_types.troll)
+
 			dungeon.entities.append(new_entity)
