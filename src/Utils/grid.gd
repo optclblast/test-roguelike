@@ -1,7 +1,7 @@
 class_name Grid 
 extends Object
 
-const _DEFAULT_SCALE_FACTOR: int = 2
+const _DEFAULT_SCALE_FACTOR: int = 1
 
 
 const DEFAULT_SCALE: Vector2 = Vector2(_DEFAULT_SCALE_FACTOR, _DEFAULT_SCALE_FACTOR)

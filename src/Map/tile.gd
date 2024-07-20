@@ -2,27 +2,27 @@ class_name Tile extends Sprite2D
 
 var _definition: TileDefinition
 
-var is_explored: bool:
+var is_explored: bool = false:
 	set(value):
-		is_explored = value 
+		is_explored = value
 		if is_explored and not visible:
-			self.visible = true
+			visible = true
 
-var is_in_view: bool:
+var is_in_view: bool = false:
 	set(value):
-		if not self.visible:
-			self.visible = true
-
-		is_in_view = value 
-		self.modulate = _definition.color_lit if is_in_view else _definition.color_dark
+		is_in_view = value
+		modulate = _definition.color_lit if is_in_view else _definition.color_dark
 		if is_in_view and not is_explored:
 			is_explored = true
 
-func _init(grid_position: Vector2i, tile_def: TileDefinition) -> void:
-	self.centered = false 
-	position = Grid.grid_to_world(grid_position) 
-	set_tile_type(tile_def) 
-	self.scale = Grid.DEFAULT_SCALE
+
+func _init(grid_position: Vector2i, tile_definition: TileDefinition) -> void:
+	visible = true
+	centered = false
+	position = Grid.grid_to_world(grid_position)
+	scale = Grid.DEFAULT_SCALE
+	set_tile_type(tile_definition)
+
 
 func set_tile_type(tile_definition: TileDefinition) -> void:
 	_definition = tile_definition
