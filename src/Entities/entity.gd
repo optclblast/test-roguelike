@@ -6,26 +6,67 @@ var grid_position: Vector2i:
 		position = Grid.grid_to_world(grid_position)
 
 var _definition: EntityDefinition
+var map_data: MapData
+var blocks_movement: bool
+var entity_name: String
 
-func _init(start_position: Vector2i, entity_definition: EntityDefinition) -> void:
+var fighter_component: FighterComponent
+var ai_component: BaseAIComponent
+
+enum AIType {
+	NONE, 
+	HOSTILE
+}
+
+enum EntityType {
+	CORPSE, 
+	ITEM, 
+	ACTOR
+}
+
+var type: EntityType:
+	set(value):
+		type = value
+		z_index = type
+
+func _init(map_data: MapData, start_position: Vector2i, entity_definition: EntityDefinition) -> void:
 	centered = false
 	grid_position = start_position
 	scale = Grid.DEFAULT_SCALE
-	
+	self.map_data = map_data
+	type = entity_definition.type
 	set_entity_type(entity_definition)
 
 func set_entity_type(entity_definition: EntityDefinition) -> void:
-	_definition = entity_definition
-	texture = entity_definition.texture
-	modulate = entity_definition.color
+	self._definition = entity_definition
+	self.texture = entity_definition.texture
+	self.modulate = entity_definition.color
+
+	self.blocks_movement = self._definition.is_blocking_movement
+	self.entity_name = self._definition.name
+
+	match entity_definition.ai_type:
+		AIType.HOSTILE:
+			self.ai_component = HostileEnemyAIComponent.new()
+			self.add_child(ai_component)
+
+	if entity_definition.fighter_definition:
+		self.fighter_component = FighterComponent.new(entity_definition.fighter_definition)
+		self.add_child(self.fighter_component)
+
 
 func move(move_offset: Vector2i) -> void:
+	self.map_data.unregister_blocking_entity(self)
 	grid_position += move_offset
+	self.map_data.register_blocking_entity(self)
 
 
 func is_blocking_movement() -> bool:
-	return _definition.is_blocking_movement
+	return self.blocks_movement
 
 
 func get_entity_name() -> String:
-	return _definition.name
+	return self.entity_name
+
+func is_alive() -> bool: 
+	return self.ai_component != null 

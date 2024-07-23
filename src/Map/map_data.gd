@@ -1,5 +1,4 @@
-class_name MapData
-extends RefCounted
+class_name MapData extends RefCounted
 
 const tile_types = {
 	"floor_cobbles": preload("res://assets/definitions/tiles/tile_definition_floor_cobbles.tres"),
@@ -8,6 +7,7 @@ const tile_types = {
 }
 
 const _cobbles_spawnrate: float = 0.8
+const entity_pathfinding_weight: float = 10.0
 
 func floor_type(rng: RandomNumberGenerator) -> Resource:
 	if rng.randf() <= _cobbles_spawnrate:
@@ -20,9 +20,16 @@ var height: int
 var tiles: Array[Tile]
 var entities: Array[Entity]
 
-func _init(map_width: int, map_height: int) -> void:
+var player: Entity
+
+var pathfinder: AStarGrid2D
+
+func _init(map_width: int, map_height: int, p: Entity) -> void:
 	width = map_width
 	height = map_height
+	
+	self.player = p
+
 	entities = []
 	_setup_tiles()
 
@@ -64,3 +71,39 @@ func grid_to_index(grid_position: Vector2i) -> int:
 		return -1
 		
 	return grid_position.y * width + grid_position.x
+
+func register_blocking_entity(entity: Entity) -> void:
+	self.pathfinder.set_point_weight_scale(entity.grid_position, entity_pathfinding_weight) 
+
+func unregister_blocking_entity(entity: Entity) -> void:
+	self.pathfinder.set_point_weight_scale(entity.grid_position, 0)
+
+func setup_pathfinding() -> void:
+	self.pathfinder = AStarGrid2D.new()
+	self.pathfinder.region = Rect2i(0, 0, width, height)
+	self.pathfinder.update()
+
+	for y in self.height:
+		for x in self.width:
+			var grid_position := Vector2i(x, y)
+			var tile: Tile = self.get_tile(grid_position)
+
+			self.pathfinder.set_point_solid(grid_position, !tile.is_walkable())
+
+	for entity in self.entities:
+		if entity.is_blocking_movement():
+			self.register_blocking_entity(entity)
+
+func get_actors() -> Array[Entity]:
+	var actors: Array[Entity] = [] 
+	for entity in self.entities:
+		if entity.is_alive():
+			actors.append(entity) 
+	return actors
+
+func get_actor_at_location(location: Vector2i) -> Entity:
+	for actor in self.get_actors():
+		if actor.grid_position == location:
+			return actor 
+		
+	return null

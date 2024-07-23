@@ -1,15 +1,28 @@
-[gd_resource type="Resource" script_class="EntityDefinition" load_steps=4 format=3 uid="uid://cv2arf3quo33w"]
+[gd_resource type="Resource" script_class="EntityDefinition" load_steps=7 format=3 uid="uid://cv2arf3quo33w"]
 
+[ext_resource type="Texture2D" uid="uid://brtorwqr3gdye" path="res://assets/resources/default_death_texture.tres" id="1_etwv6"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_mxy84"]
-[ext_resource type="Texture2D" uid="uid://b4n5uctqrl232" path="res://assets/Tilesheet/monochrome_packed.png" id="2_ipqyc"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_pygml"]
+[ext_resource type="Texture2D" uid="uid://ds50xuksqoo5b" path="res://assets/ff.png" id="2_8gosv"]
+
+[sub_resource type="Resource" id="Resource_tco1p"]
+script = ExtResource("1_pygml")
+max_hp = 16
+power = 4
+defense = 1
+death_texture = ExtResource("1_etwv6")
+death_color = Color(0.545098, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y2gui"]
-atlas = ExtResource("2_ipqyc")
-region = Rect2(480, 96, 16, 16)
+atlas = ExtResource("2_8gosv")
+region = Rect2(34, 68, 16, 16)
 
 [resource]
 script = ExtResource("1_mxy84")
 name = "NONAME"
 texture = SubResource("AtlasTexture_y2gui")
-color = Color(0.462139, 0.693219, 0.314874, 1)
+color = Color(0.73893, 0.702936, 0.653621, 1)
 is_blocking_movement = true
+type = 2
+fighter_definition = SubResource("Resource_tco1p")
+ai_type = 1
