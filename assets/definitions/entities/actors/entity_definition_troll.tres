@@ -19,7 +19,7 @@ region = Rect2(34, 68, 16, 16)
 
 [resource]
 script = ExtResource("1_mxy84")
-name = "NONAME"
+name = "Troll"
 texture = SubResource("AtlasTexture_y2gui")
 color = Color(0.73893, 0.702936, 0.653621, 1)
 is_blocking_movement = true

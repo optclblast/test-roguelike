@@ -26,6 +26,11 @@ func _ready() -> void:
 	
 	map.generate(player)
 	map.update_fov(player.grid_position)
+	
+	MessageLog.send_message.bind(
+		"Hello and welcome, adventurer, to yet another dungeon!",
+		GameColors.WELCOME_TEXT
+	).call_deferred()
 
 func _physics_process(_delta: float) -> void:
 	var action: Action = event_handler.get_action(player)
@@ -39,7 +44,6 @@ func _handle_enemy_turns() -> void:
 	for entity in get_map_data().entities:
 		if entity.is_alive() && entity != player:
 			entity.ai_component.perform()
-	# TODO move or attack or do whatever enemies do???
 
 func get_map_data() -> MapData:
 	return map.map_data
