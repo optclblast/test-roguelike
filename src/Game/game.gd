@@ -1,16 +1,25 @@
 class_name Game extends Node2D
 
+# SIGNALS
+signal player_created(player)
+
+# CONSTS
 const player_definition: EntityDefinition = preload("res://assets/definitions/entities/actors/entity_definition_player.tres")
 const tile_size = 16
 
+# ONREADY VARS
 @onready var player: Entity
 @onready var event_handler: InputHandler = $InputHandler
 @onready var map: Map = $Map
 @onready var camera: Camera2D = $Camera2D
 
+# VARS 
+
+# FUNCS
 
 func _ready() -> void:
 	player = Entity.new(null, Vector2i.ZERO, player_definition)
+	player_created.emit(player)
 	
 	remove_child(camera)
 	player.add_child(camera)
