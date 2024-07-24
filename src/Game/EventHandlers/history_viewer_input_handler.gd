@@ -2,10 +2,10 @@ extends BaseInputHandler
 
 const scroll_step: int = 16 
 
-@export_node_path("MessagesPanel") var messages_panel_path 
-@export_node_path("MessageLog") var message_log_path 
+@export_node_path("PanelContainer") var messages_panel_path
+@export_node_path("MessageLog") var message_log_path
 
-@onready var message_panel: PanelContainer = get_node(messages_panel_path) # Kakogo huya tut NIL?????
+@onready var message_panel: PanelContainer = get_node(messages_panel_path)
 @onready var message_log: MessageLog = get_node(message_log_path)
 
 func enter() -> void: 

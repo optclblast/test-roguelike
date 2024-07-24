@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://n87rw5cxnnn8"]
+[gd_scene load_steps=18 format=3 uid="uid://n87rw5cxnnn8"]
 
 [ext_resource type="Script" path="res://src/Game/game.gd" id="1_ne6pe"]
 [ext_resource type="Script" path="res://src/Game/EventHandlers/input_handler.gd" id="2_tqmql"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://src/GUI/hp_display.gd" id="9_dvrac"]
 [ext_resource type="FontFile" uid="uid://cddgor2y34q5p" path="res://assets/fonts/Kenney Pixel.ttf" id="10_yt4ii"]
 [ext_resource type="Script" path="res://src/GUI/message_log.gd" id="11_6f4bb"]
-[ext_resource type="Script" path="res://src/GUI/messages_panel.gd" id="12_a5ptp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yqq2b"]
 atlas = ExtResource("8_6232k")
@@ -82,8 +81,10 @@ script = ExtResource("3_g5bjg")
 [node name="GameOverInputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("4_thvwg")
 
-[node name="HistoryViewer" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
+[node name="HistoryViewerInputHandler" type="Node" parent="VBoxContainer/SubViewportContainer/SubViewport/Game/InputHandler"]
 script = ExtResource("5_y53o6")
+messages_panel_path = NodePath("../../../../../InfoBar/MessagesPanel")
+message_log_path = NodePath("../../../../../InfoBar/MessagesPanel/MessageLog")
 
 [node name="Map" type="Node2D" parent="VBoxContainer/SubViewportContainer/SubViewport/Game"]
 script = ExtResource("3_xyl86")
@@ -140,7 +141,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_pob2c")
-script = ExtResource("12_a5ptp")
 
 [node name="MessageLog" type="ScrollContainer" parent="VBoxContainer/InfoBar/MessagesPanel"]
 layout_mode = 2
